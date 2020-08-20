@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import reviewRoutes from "./routes/reviewRoutes";
 
 export class App {
   public app: express.Application;
@@ -15,6 +16,10 @@ export class App {
     this.app.use(cors());
     this.app.use(helmet());
     this.app.use(express.json());
+  }
+
+  public enableRoutes(): void {
+    this.app.use(reviewRoutes());
   }
 
   public startApp(): void {

@@ -66,12 +66,12 @@ const data = [
   },
 ];
 
-const reviews: IReview[] = [];
+export const reviews: IReview[] = [];
+export const testReviews: IReview[] = [];
 
 data.forEach((item) => {
   const { id, rating, name, review, userAvatar, postedAt } = item;
   const newReview = new Review(id, rating, name, review, postedAt, userAvatar);
   reviews.push(newReview);
+  testReviews.push(newReview);
 });
-
-export default reviews;

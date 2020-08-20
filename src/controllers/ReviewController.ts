@@ -16,14 +16,14 @@ export default class ReviewController {
     };
 
     if (startIndex > 0) {
-      results.next = {
-        page: page + 1,
+      results.previous = {
+        page: page - 1,
       };
     }
 
     if (endIndex < this.reviews.length) {
-      results.previous = {
-        page: page - 1,
+      results.next = {
+        page: page + 1,
       };
     }
 

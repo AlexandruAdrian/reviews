@@ -1,9 +1,9 @@
 import ReviewController from "../controllers/ReviewController";
-import reviews from "../data/reviews";
+import { testReviews } from "../data/reviews";
 import { nanoid } from "nanoid";
 import Review from "../models/Review";
 
-const RevController = new ReviewController(reviews);
+const RevController = new ReviewController(testReviews);
 
 test("should return as many reviews as limit is set", () => {
   const page = 1;
@@ -13,13 +13,13 @@ test("should return as many reviews as limit is set", () => {
 });
 
 test("should return requested review by id", () => {
-  const requestedId = reviews[3].getId();
+  const requestedId = testReviews[3].getId();
   const requestedReview = RevController.getReview(requestedId);
   expect(requestedReview.getId()).toBe(requestedId);
 });
 
 test("should delete review", () => {
-  const reviewId = reviews[3].getId();
+  const reviewId = testReviews[3].getId();
   RevController.deleteReview(reviewId);
   expect(() => RevController.getReview(reviewId)).toThrow(Error);
 });
@@ -31,7 +31,7 @@ test("should insert new review", () => {
 });
 
 test("should update review", () => {
-  const reviewToUpdate = reviews[3].getId();
+  const reviewToUpdate = testReviews[3].getId();
   const newData = {
     rating: 1,
     review: "Disappointed",
