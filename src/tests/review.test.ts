@@ -80,3 +80,10 @@ test("should set proper user avatar", () => {
   newReview.setUserAvatar(newUserAvatar);
   expect(newReview.getUserAvatar()).toBe(newUserAvatar);
 });
+
+test("should set proper date", () => {
+  const newDate = Date.now();
+  const newReview = new Review(nanoid(), 3);
+  newReview.setDate(newDate);
+  expect(newReview.getDate()).toBe(newDate);
+});
