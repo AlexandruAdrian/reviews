@@ -42,6 +42,41 @@ export default class ReviewController {
   }
 
   public deleteReview(reviewId: string): void {
-    this.reviews = this.reviews.filter((review) => review.getId() !== reviewId);
+    const reviewIndex = this.reviews.findIndex(
+      (review) => review.getId() === reviewId
+    );
+    this.reviews.splice(reviewIndex, 1);
+  }
+
+  public insertReview(review: IReview): IReview {
+    this.reviews.unshift(review);
+    return this.reviews[0];
+  }
+
+  public updateReview(
+    reviewId: string,
+    newData: {
+      rating: number;
+      review: string;
+      postedAt: number;
+    }
+  ): IReview {
+    const { rating, review, postedAt } = newData;
+    const foundReview = this.getReview(reviewId);
+
+    foundReview.setRating(rating);
+    foundReview.setReview(review);
+    foundReview.setDate(postedAt);
+
+    const reviewIndex = this.reviews.findIndex(
+      (review) => review.getId() === foundReview.getId()
+    );
+    this.reviews[reviewIndex] = foundReview;
+    this.reviews.sort((a, b) => a.getDate() - b.getDate());
+    const newReviewIndex = this.reviews.findIndex(
+      (review) => review.getId() === foundReview.getId()
+    );
+
+    return this.reviews[newReviewIndex];
   }
 }

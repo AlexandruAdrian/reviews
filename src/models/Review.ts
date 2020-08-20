@@ -68,4 +68,8 @@ export default class Review implements IReview {
   public setUserAvatar(pathToAvatar: string): void {
     this.userAvatar = pathToAvatar;
   }
+
+  public setDate(date: number): void {
+    this.postedAt = date;
+  }
 }

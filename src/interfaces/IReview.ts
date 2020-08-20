@@ -9,4 +9,5 @@ export default interface IReview {
   setName: (name: string) => void;
   setReview: (review: string) => void;
   setUserAvatar: (pathToAvatar: string) => void;
+  setDate: (date: number) => void;
 }
