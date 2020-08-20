@@ -3,7 +3,6 @@ import Review from "../models/Review";
 import { nanoid } from "nanoid";
 
 const generatedId: string = nanoid();
-console.log(generatedId);
 const rating = 5;
 const name = "Test";
 const review = "Lorem ipsum";

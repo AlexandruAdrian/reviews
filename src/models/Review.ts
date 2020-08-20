@@ -12,8 +12,8 @@ export default class Review {
   constructor(
     id: string = nanoid(),
     rating: number,
-    name: string = "Anonym",
-    review: string = "",
+    name = "Anonym",
+    review = "",
     postedAt: number = Date.now(),
     userAvatar: string = path.join(
       __dirname,
@@ -28,27 +28,27 @@ export default class Review {
     this.userAvatar = userAvatar;
   }
 
-  public getId() {
+  public getId(): string {
     return this.id;
   }
 
-  public getRating() {
+  public getRating(): number {
     return this.rating;
   }
 
-  public getName() {
+  public getName(): string {
     return this.name;
   }
 
-  public getReview() {
+  public getReview(): string {
     return this.review;
   }
 
-  public getDate() {
+  public getDate(): number {
     return this.postedAt;
   }
 
-  public getUserAvatar() {
+  public getUserAvatar(): string {
     return this.userAvatar;
   }
 
@@ -64,7 +64,7 @@ export default class Review {
     this.review = review;
   }
 
-  public setUserAvatar(pathToAvatar: string) {
+  public setUserAvatar(pathToAvatar: string): void {
     this.userAvatar = pathToAvatar;
   }
 }

@@ -11,13 +11,15 @@ export class App {
     this.port = 8000;
   }
 
-  public enableMiddleware() {
+  public enableMiddleware(): void {
     this.app.use(cors());
     this.app.use(helmet());
     this.app.use(express.json());
   }
 
-  public startApp() {
-    this.app.listen((PORT) => console.log(`Listening on port ${this.port}`));
+  public startApp(): void {
+    this.app.listen(this.port, () =>
+      console.log(`Listening on port ${this.port}`)
+    );
   }
 }
