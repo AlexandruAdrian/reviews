@@ -40,4 +40,8 @@ export default class ReviewController {
     }
     return review;
   }
+
+  public deleteReview(reviewId: string): void {
+    this.reviews = this.reviews.filter((review) => review.getId() !== reviewId);
+  }
 }

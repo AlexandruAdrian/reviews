@@ -15,3 +15,9 @@ test("should return requested review by id", () => {
   const requestedReview = RevController.getReview(requestedId);
   expect(requestedReview.getId()).toBe(requestedId);
 });
+
+test("should delete review", () => {
+  const reviewId = reviews[3].getId();
+  RevController.deleteReview(reviewId);
+  expect(() => RevController.getReview(reviewId)).toThrow(Error);
+});
