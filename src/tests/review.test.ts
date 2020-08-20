@@ -2,28 +2,28 @@ import path from "path";
 import Review from "../models/Review";
 import { nanoid } from "nanoid";
 
-const generatedId: string = nanoid();
-const rating = 5;
-const name = "Test";
-const review = "Lorem ipsum";
-const postedAt = Date.now();
-const testReview = new Review(generatedId, rating, name, review, postedAt);
-const testAnonym = new Review(generatedId, rating);
-
 test("should return same id", () => {
-  expect(testReview.getId()).toBe(generatedId);
+  const generatedId = nanoid();
+  const newReview = new Review(generatedId, 4, undefined);
+  expect(newReview.getId()).toBe(generatedId);
 });
 
 test("should return proper rating", () => {
-  expect(testReview.getRating()).toBe(rating);
+  const rating = 5;
+  const newReview = new Review(nanoid(), rating, undefined);
+  expect(newReview.getRating()).toBe(rating);
 });
 
 test("should return proper name", () => {
-  expect(testReview.getName()).toBe(name);
+  const name = "John Doe";
+  const newReview = new Review(nanoid(), 5, name);
+  expect(newReview.getName()).toBe(name);
 });
 
 test("should return proper review", () => {
-  expect(testReview.getReview()).toBe(review);
+  const review = "Lorem ipsum dolor amet";
+  const newReview = new Review(nanoid(), 5, undefined, review);
+  expect(newReview.getReview()).toBe(review);
 });
 
 test("should return default user avatar", () => {
@@ -31,37 +31,52 @@ test("should return default user avatar", () => {
     __dirname,
     "../data/images/placeholder-avatar.jpg"
   );
-  expect(testReview.getUserAvatar()).toBe(defaultUserAvatar);
+  const newReview = new Review(
+    nanoid(),
+    5,
+    undefined,
+    "Lorem ipsum",
+    Date.now(),
+    defaultUserAvatar
+  );
+  expect(newReview.getUserAvatar()).toBe(defaultUserAvatar);
 });
 
 test("should return date", () => {
-  expect(testReview.getDate()).toBe(postedAt);
+  const postedAt = Date.now();
+  const newReview = new Review(nanoid(), 5, undefined, "Lorem ipsum", postedAt);
+  expect(newReview.getDate()).toBe(postedAt);
 });
 
-test("should return Anonym name", () => {
-  expect(testAnonym.getName()).toBe("Anonym");
+test("should return Anonymous name", () => {
+  const newReview = new Review(nanoid(), 5, undefined);
+  expect(newReview.getName()).toBe("Anonymous");
 });
 
 test("should set proper name", () => {
   const newName = "Test";
-  testAnonym.setName(newName);
-  expect(testAnonym.getName()).toBe(newName);
+  const newReview = new Review(nanoid(), 5);
+  newReview.setName(newName);
+  expect(newReview.getName()).toBe(newName);
 });
 
 test("should set proper rating", () => {
   const newRating = 3;
-  testAnonym.setRating(newRating);
-  expect(testAnonym.getRating()).toBe(newRating);
+  const newReview = new Review(nanoid(), 3);
+  newReview.setRating(newRating);
+  expect(newReview.getRating()).toBe(newRating);
 });
 
 test("should set proper review", () => {
-  const newReview = "Lorem ipsum dolor amet";
-  testAnonym.setReview(newReview);
-  expect(testAnonym.getReview()).toBe(newReview);
+  const newReviewText = "Lorem ipsum dolor amet";
+  const newReview = new Review(nanoid(), 5);
+  newReview.setReview(newReviewText);
+  expect(newReview.getReview()).toBe(newReviewText);
 });
 
 test("should set proper user avatar", () => {
   const newUserAvatar = path.join(__dirname, "../data/images/user1.jpg");
-  testAnonym.setUserAvatar(newUserAvatar);
-  expect(testAnonym.getUserAvatar()).toBe(newUserAvatar);
+  const newReview = new Review(nanoid(), 5);
+  newReview.setUserAvatar(newUserAvatar);
+  expect(newReview.getUserAvatar()).toBe(newUserAvatar);
 });

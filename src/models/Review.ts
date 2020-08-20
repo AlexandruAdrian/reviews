@@ -1,7 +1,8 @@
 import path from "path";
 import { nanoid } from "nanoid";
+import IReview from "../interfaces/IReview";
 
-export default class Review {
+export default class Review implements IReview {
   private id: string;
   private rating: number;
   private name: string;
@@ -12,7 +13,7 @@ export default class Review {
   constructor(
     id: string = nanoid(),
     rating: number,
-    name = "Anonym",
+    name = "Anonymous",
     review = "",
     postedAt: number = Date.now(),
     userAvatar: string = path.join(

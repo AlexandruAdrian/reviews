@@ -1,5 +1,6 @@
 import path from "path";
-import IReview from "../models/IReview";
+import IReview from "../interfaces/IReview";
+import Review from "../models/Review";
 import { nanoid } from "nanoid";
 
 const defaultUserAvatar = path.join(
@@ -10,11 +11,11 @@ const defaultUserAvatar = path.join(
 const halfDay = 60 * 720 * 1000;
 const day = halfDay * 2;
 
-const data: IReview[] = [
+const data = [
   {
     id: nanoid(),
     rating: 4,
-    name: "Anonym",
+    name: undefined,
     review:
       "Liked it very much - probably one of the best thai restaurants in the city - recommend!",
     userAvatar: defaultUserAvatar,
@@ -65,4 +66,12 @@ const data: IReview[] = [
   },
 ];
 
-export default data;
+const reviews: IReview[] = [];
+
+data.forEach((item) => {
+  const { id, rating, name, review, userAvatar, postedAt } = item;
+  const newReview = new Review(id, rating, name, review, postedAt, userAvatar);
+  reviews.push(newReview);
+});
+
+export default reviews;
