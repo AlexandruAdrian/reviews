@@ -15,6 +15,24 @@ const reviewRoutes = (): express.Router => {
     res.status(200).json(result);
   });
 
+  router.get(
+    "/average-rating",
+    (req: express.Request, res: express.Response) => {
+      const averageRating = RevController.getNumberOfReviews();
+
+      res.status(200).json({ averageRating });
+    }
+  );
+
+  router.get(
+    "/total-reviews",
+    (req: express.Request, res: express.Response) => {
+      const totalNumberOfReviews = RevController.getNumberOfReviews();
+
+      res.status(200).json({ totalNumberOfReviews });
+    }
+  );
+
   router.get("/:reviewId", (req: express.Request, res: express.Response) => {
     const reviewId = req.params.reviewId;
     const review = RevController.getReview(reviewId);

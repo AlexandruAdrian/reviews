@@ -53,11 +53,8 @@ export default class ReviewController {
       (acc, review) => acc + review.getRating(),
       0
     );
-    const averageRating = parseFloat(
-      (totalRating / this.reviews.length).toFixed(1)
-    );
-
-    return averageRating;
+    const averageRating = (totalRating / this.getNumberOfReviews()).toFixed(1);
+    return parseFloat(averageRating);
   }
 
   public insertReview(review: IReview): IReview {
