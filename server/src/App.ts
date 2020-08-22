@@ -10,7 +10,7 @@ export class App {
 
   constructor() {
     this.app = express();
-    this.port = 3000;
+    this.port = 8000;
   }
 
   public enableMiddleware(): void {
