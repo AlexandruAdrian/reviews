@@ -1,11 +1,15 @@
 import IReview from "../interfaces/IReview";
 import IReviewResult from "../interfaces/IReviewsResult";
+import { IErrorFactory } from "../interfaces/IErrorFactory";
+import ErrorFactory from "../factories/errorFactory";
 
 export default class ReviewController {
   private reviews: IReview[];
+  private _ErrorFactory: IErrorFactory;
 
   constructor(reviews: IReview[]) {
     this.reviews = reviews;
+    this._ErrorFactory = ErrorFactory;
   }
 
   public getReviews(page: number, limit: number): IReviewResult {
@@ -14,6 +18,14 @@ export default class ReviewController {
     const results: IReviewResult = {
       result: [],
     };
+
+    if (page < 1) {
+      throw this._ErrorFactory.createError({
+        type: "invalid",
+        name: "InvalidError",
+        message: "Page number should not be lower than 1",
+      });
+    }
 
     if (startIndex > 0) {
       results.previous = {
@@ -36,7 +48,11 @@ export default class ReviewController {
     const review = this.reviews.find((review) => review.getId() === reviewId);
 
     if (!review) {
-      throw new Error("Review not found");
+      throw this._ErrorFactory.createError({
+        type: "notfound",
+        name: "NotFoundError",
+        message: "Resource not found",
+      });
     }
     return review;
   }

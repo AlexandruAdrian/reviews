@@ -7,13 +7,23 @@ const reviewRoutes = (): express.Router => {
   const router = express.Router();
   const RevController = new ReviewController(reviews);
 
-  router.get("/", (req: express.Request, res: express.Response) => {
-    const page = parseInt(req.query.page as string);
-    const limit = parseInt(req.query.limit as string);
-    const result = RevController.getReviews(page, limit);
-
-    res.status(200).json(result);
-  });
+  router.get(
+    "/",
+    (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      try {
+        const page = parseInt(req.query.page as string);
+        const limit = parseInt(req.query.limit as string);
+        const result = RevController.getReviews(page, limit);
+        res.status(200).json(result);
+      } catch (err) {
+        next(err);
+      }
+    }
+  );
 
   router.get(
     "/average-rating",
@@ -33,12 +43,23 @@ const reviewRoutes = (): express.Router => {
     }
   );
 
-  router.get("/:reviewId", (req: express.Request, res: express.Response) => {
-    const reviewId = req.params.reviewId;
-    const review = RevController.getReview(reviewId);
+  router.get(
+    "/:reviewId",
+    (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      try {
+        const reviewId = req.params.reviewId;
+        const review = RevController.getReview(reviewId);
 
-    res.status(200).json(review);
-  });
+        res.status(200).json(review);
+      } catch (err) {
+        next(err);
+      }
+    }
+  );
 
   router.post("/", (req: express.Request, res: express.Response) => {
     const { id, rating, name, review } = req.body;

@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import reviewRoutes from "./routes/reviewRoutes";
+import errorHandler from "./middlewares/errorHandler";
 
 export class App {
   public app: express.Application;
@@ -20,6 +21,10 @@ export class App {
 
   public enableRoutes(): void {
     this.app.use(reviewRoutes());
+  }
+
+  public enableErrorHandler(): void {
+    this.app.use(errorHandler);
   }
 
   public startApp(): void {
